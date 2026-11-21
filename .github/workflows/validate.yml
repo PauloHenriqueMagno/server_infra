@@ -1,0 +1,32 @@
+name: Validate
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Validate compose configuration
+        run: |
+          cp .env.example .env
+          docker compose --env-file .env -f compose/docker-compose.yml config --quiet
+
+      - name: Validate image catalog
+        run: |
+          pip install pyyaml --quiet
+          python3 -c "
+          import yaml
+          with open('images.yaml') as f:
+              data = yaml.safe_load(f)
+          assert 'services' in data
+          for name, svc in data['services'].items():
+              assert 'image' in svc, f'{name} missing image'
+              assert 'purpose' in svc, f'{name} missing purpose'
+          print(f'Validated {len(data[\"services\"])} services')
+          "
