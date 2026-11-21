@@ -1,0 +1,11 @@
+services:
+  uptime-kuma:
+    image: ${IMAGE_UPTIME_KUMA}
+    container_name: uptime-kuma
+    restart: unless-stopped
+    ports:
+      - "${UPTIME_KUMA_PORT:-3001}:3001"
+    volumes:
+      - ${STORAGE_PATH:-/srv/data}/uptime-kuma:/app/data
+    networks:
+      - infra

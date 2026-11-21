@@ -1,0 +1,10 @@
+{
+	email {$ACME_EMAIL:admin@localhost}
+}
+
+{$DOMAIN:localhost} {
+	tls {
+		issuer {$CADDY_ISSUER:internal}
+	}
+	respond "Homelab infrastructure is running." 200
+}

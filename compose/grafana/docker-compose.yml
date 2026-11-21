@@ -1,0 +1,15 @@
+services:
+  grafana:
+    image: ${IMAGE_GRAFANA}
+    container_name: grafana
+    restart: unless-stopped
+    environment:
+      GF_SECURITY_ADMIN_USER: ${GRAFANA_ADMIN_USER}
+      GF_SECURITY_ADMIN_PASSWORD: ${GRAFANA_ADMIN_PASSWORD}
+    ports:
+      - "${GRAFANA_PORT:-3000}:3000"
+    volumes:
+      - ${STORAGE_PATH:-/srv/data}/grafana:/var/lib/grafana
+      - ../../configs/grafana/provisioning:/etc/grafana/provisioning:ro
+    networks:
+      - infra

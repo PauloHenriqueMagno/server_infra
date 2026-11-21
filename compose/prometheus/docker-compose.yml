@@ -1,0 +1,41 @@
+services:
+  prometheus:
+    image: ${IMAGE_PROMETHEUS}
+    container_name: prometheus
+    restart: unless-stopped
+    command:
+      - --config.file=/etc/prometheus/prometheus.yml
+      - --storage.tsdb.path=/prometheus
+      - --web.enable-lifecycle
+    ports:
+      - "${PROMETHEUS_PORT:-9090}:9090"
+    volumes:
+      - ../../configs/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - ${STORAGE_PATH:-/srv/data}/prometheus:/prometheus
+    networks:
+      - infra
+
+  node-exporter:
+    image: ${IMAGE_NODE_EXPORTER}
+    container_name: node-exporter
+    restart: unless-stopped
+    command:
+      - --path.rootfs=/host
+    pid: host
+    volumes:
+      - /:/host:ro,rslave
+    networks:
+      - infra
+
+  cadvisor:
+    image: ${IMAGE_CADVISOR}
+    container_name: cadvisor
+    restart: unless-stopped
+    privileged: true
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:ro
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+    networks:
+      - infra

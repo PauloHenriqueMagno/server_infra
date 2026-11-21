@@ -1,0 +1,17 @@
+name: homelab
+
+include:
+  - path: caddy/docker-compose.yml
+  - path: postgres/docker-compose.yml
+  - path: redis/docker-compose.yml
+  - path: object-storage/docker-compose.yml
+  - path: grafana/docker-compose.yml
+  - path: prometheus/docker-compose.yml
+  - path: loki/docker-compose.yml
+  - path: portainer/docker-compose.yml
+  - path: uptime-kuma/docker-compose.yml
+
+networks:
+  infra:
+    name: ${INFRA_NETWORK:-infra}
+    driver: bridge

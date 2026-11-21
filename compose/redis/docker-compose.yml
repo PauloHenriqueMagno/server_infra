@@ -1,0 +1,18 @@
+services:
+  redis:
+    image: ${IMAGE_REDIS}
+    container_name: redis
+    restart: unless-stopped
+    command: redis-server --requirepass ${REDIS_PASSWORD} --appendonly yes
+    ports:
+      # Localhost only. Other computers reach this through an SSH tunnel.
+      - "127.0.0.1:${REDIS_PORT:-6379}:6379"
+    volumes:
+      - ${STORAGE_PATH:-/srv/data}/redis:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "-a", "${REDIS_PASSWORD}", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - infra
