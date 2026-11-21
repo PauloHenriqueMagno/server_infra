@@ -1,0 +1,64 @@
+# Infrastructure image catalog
+# Single source of truth for Docker images, versions, and upstream sources.
+# Copy values from here into .env before deploying.
+
+services:
+  caddy:
+    image: caddy:2.9.1-alpine
+    purpose: Reverse proxy, HTTPS, automatic TLS
+    upstream: https://hub.docker.com/_/caddy
+
+  postgres:
+    image: postgres:17.5-alpine
+    purpose: Primary relational database
+    upstream: https://hub.docker.com/_/postgres
+
+  redis:
+    image: redis:7.4.2-alpine
+    purpose: Cache, queues, session storage
+    upstream: https://hub.docker.com/_/redis
+
+  minio:
+    image: minio/minio:RELEASE.2025-04-22T22-12-26Z
+    purpose: S3-compatible object storage
+    upstream: https://hub.docker.com/r/minio/minio
+
+  grafana:
+    image: grafana/grafana:11.6.0
+    purpose: Dashboards and visualization
+    upstream: https://hub.docker.com/r/grafana/grafana
+
+  prometheus:
+    image: prom/prometheus:v3.2.1
+    purpose: Metrics collection
+    upstream: https://hub.docker.com/r/prom/prometheus
+
+  node_exporter:
+    image: prom/node-exporter:v1.9.0
+    purpose: Host CPU, RAM, disk, network metrics
+    upstream: https://hub.docker.com/r/prom/node-exporter
+
+  cadvisor:
+    image: gcr.io/cadvisor/cadvisor:v0.51.0
+    purpose: Container metrics
+    upstream: https://github.com/google/cadvisor
+
+  loki:
+    image: grafana/loki:3.4.2
+    purpose: Centralized log aggregation
+    upstream: https://hub.docker.com/r/grafana/loki
+
+  promtail:
+    image: grafana/promtail:3.4.2
+    purpose: Docker container log shipping to Loki
+    upstream: https://hub.docker.com/r/grafana/promtail
+
+  portainer:
+    image: portainer/portainer-ce:2.27.1
+    purpose: Docker management UI
+    upstream: https://hub.docker.com/r/portainer/portainer-ce
+
+  uptime_kuma:
+    image: louislam/uptime-kuma:1.23.16
+    purpose: Service uptime monitoring
+    upstream: https://hub.docker.com/r/louislam/uptime-kuma
