@@ -320,7 +320,7 @@ All infrastructure images and pinned versions are defined in [`images.yaml`](ima
 | Caddy | `caddy` | 2.9.1-alpine |
 | PostgreSQL | `postgres` | 17.5-alpine |
 | Redis | `redis` | 7.4.2-alpine |
-| MinIO | `minio/minio` | RELEASE.2025-04-22T22-12-26Z |
+| MinIO | `pgsty/silo` | RELEASE.2026-11-12T00-00-00Z |
 | Grafana | `grafana/grafana` | 11.6.0 |
 | Prometheus | `prom/prometheus` | v3.2.1 |
 | Node Exporter | `prom/node-exporter` | v1.9.0 |

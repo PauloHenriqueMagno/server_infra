@@ -19,9 +19,11 @@ services:
     upstream: https://hub.docker.com/_/redis
 
   minio:
-    image: minio/minio:RELEASE.2025-04-22T22-12-26Z
+    # Docker Hub removed minio/minio, and quay.io/minio/minio now rejects anonymous pulls.
+    # SILO is a public build of the same server, started with the same command and MINIO_* variables.
+    image: pgsty/silo:RELEASE.2026-11-12T00-00-00Z
     purpose: S3-compatible object storage
-    upstream: https://hub.docker.com/r/minio/minio
+    upstream: https://hub.docker.com/r/pgsty/silo
 
   grafana:
     image: grafana/grafana:11.6.0
